@@ -4,14 +4,21 @@
 
           <li v-for="(el, i ) in dischi" :key="`dischi-${i}`">
 
-              <img :src="el.poster" :alt="el.title">
+              <!-- <img :src="el.poster" :alt="el.title">
               <h2>{{el.title}}</h2>
               <div>
                   <h3>{{el.author}}</h3>
                   <div>{{el.year}}</div>
               </div>
-              <div>{{el.genre}}</div>
-              
+              <div>{{el.genre}}</div> -->
+              <Cards 
+                 :poster="el.poster"
+                 :title="el.title"
+                 :author="el.author"
+                 :year="el.year"
+                 :genre="el.genre"
+              />
+
           </li>
       </ul>
       <div v-else>Loading...</div>
@@ -20,9 +27,13 @@
 
 <script>
 import axios from 'axios';
+import Cards from '@/components/Cards.vue'
 
 export default {
     name: 'DischiList',
+    components: {
+        Cards,
+    },
     data(){
         return{
             dischi: null,
@@ -36,8 +47,8 @@ export default {
 
             axios.get('https://flynn.boolean.careers/exercises/api/array/music')
             .then(result => {
-                console.log(result.data);
-                this.dischi = result.data;
+                console.log(result.data.response);
+                this.dischi = result.data.response;
             })
             .catch(err => console.log(err));
 
@@ -49,21 +60,22 @@ export default {
 <style scoped lang="scss">
 section{
     width: 100%;
-    height: 100vh;
     background-color: #1d2d3c;
 
 
     ul{
-        width: 90%;
+        width: 95%;
         padding: 120px 0;
         margin: 0 auto;
         list-style: none;
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         color: white;
 
         li{
-            margin-right: 30px;
+            margin: 10px 17px;
+
         }
     }
 }
