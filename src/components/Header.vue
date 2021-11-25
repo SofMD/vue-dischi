@@ -1,6 +1,6 @@
 <template>
 
-<header class="w-100 p-2">
+<header >
     <img src="../assets/logosp.png" alt="">
 </header>
 </template>
@@ -15,6 +15,7 @@ export default {
 
 header{
     background-color: #2e3a46;
+    padding: 5px;
 
     img{
         width: 50px;
