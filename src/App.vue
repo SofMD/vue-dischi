@@ -1,16 +1,17 @@
 <template>
   <div id="app">
 
-    <Header/>
+    <Header @performClick=" searchgenre"/>
 
     <main>
-      <DischiList/>
+      <DischiList :cd="dischi"/>
     </main>
 
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import Header from '@/components/Header.vue';
 import DischiList from '@/components/DischiList.vue';
 
@@ -20,7 +21,32 @@ export default {
     Header,
     DischiList,
 
-  }
+  },
+
+  data(){
+        return{
+            dischi: null,
+        };
+    },
+    created() {
+        this.genDischi();
+    },
+    methods: {
+        genDischi() {
+
+            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+            .then(result => {
+                console.log(result.data.response);
+                this.dischi = result.data.response;
+            })
+            .catch(err => console.log(err));
+
+        },
+
+        searchgenre(text){
+          console.log(text)
+        }
+    }
 }
 </script>
 

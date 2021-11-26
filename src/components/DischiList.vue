@@ -1,16 +1,8 @@
 <template>
   <section>
-      <ul v-if="dischi !== null" class="dischi-list">
+      <ul v-if="cd !== null" class="dischi-list">
 
-          <li v-for="(el, i ) in dischi" :key="`dischi-${i}`">
-
-              <!-- <img :src="el.poster" :alt="el.title">
-              <h2>{{el.title}}</h2>
-              <div>
-                  <h3>{{el.author}}</h3>
-                  <div>{{el.year}}</div>
-              </div>
-              <div>{{el.genre}}</div> -->
+          <li v-for="(el, i ) in cd" :key="`dischi-${i}`">
               <Cards 
                  :poster="el.poster"
                  :title="el.title"
@@ -26,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import Cards from '@/components/Cards.vue'
 
 export default {
@@ -34,26 +26,29 @@ export default {
     components: {
         Cards,
     },
-    data(){
-        return{
-            dischi: null,
-        };
+    props: {
+        cd: Array
     },
-    created() {
-        this.genDischi();
-    },
-    methods: {
-        genDischi() {
+    // data(){
+    //     return{
+    //         dischi: null,
+    //     };
+    // },
+    // created() {
+    //     this.genDischi();
+    // },
+    // methods: {
+    //     genDischi() {
 
-            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
-            .then(result => {
-                console.log(result.data.response);
-                this.dischi = result.data.response;
-            })
-            .catch(err => console.log(err));
+    //         axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+    //         .then(result => {
+    //             console.log(result.data.response);
+    //             this.dischi = result.data.response;
+    //         })
+    //         .catch(err => console.log(err));
 
-        },
-    }
+    //     },
+    // }
 }
 </script>
 
