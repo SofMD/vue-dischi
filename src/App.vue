@@ -4,7 +4,7 @@
     <Header @performClick=" searchgenre"/>
 
     <main>
-      <DischiList :cd="dischi"/>
+      <DischiList :cd="filteredgenre"/>
     </main>
 
   </div>
@@ -26,8 +26,26 @@ export default {
   data(){
         return{
             dischi: null,
+            selectedgen: 'All genres',
         };
     },
+    computed: {
+      filteredgenre() {
+        if(this.selectedgen === 'All genres'){
+          return this.dischi;
+        }
+        return this.dischi.filter(item => {
+          return item.genre.toLowerCase().includes(this.selectedgen.toLowerCase())
+        });
+       
+      //  return this.dischi.filter(item => {
+        //    return item.genre.includes(this.selectedgen)
+        //  });
+      }
+
+     
+    },
+
     created() {
         this.genDischi();
     },
@@ -36,7 +54,6 @@ export default {
 
             axios.get('https://flynn.boolean.careers/exercises/api/array/music')
             .then(result => {
-                console.log(result.data.response);
                 this.dischi = result.data.response;
             })
             .catch(err => console.log(err));
@@ -44,7 +61,8 @@ export default {
         },
 
         searchgenre(text){
-          console.log(text)
+          this.selectedgen = text;
+          console.log(this.selectedgen);
         }
     }
 }
